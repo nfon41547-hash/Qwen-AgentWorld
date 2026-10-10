@@ -1,0 +1,4 @@
+index	branch	parent_commit	commit	recipe	metric_name	metric_value	memory_gb	elapsed_min	launcher	job_id	command	log_path	status	description
+0	autoresearch/baseline	cd0aa83	2848133	int4_24sp_eval	overall_score	97.15	19.3	1.2	local	local-rtx3090	python eval_empirical_quality.py	reports/auto_research/baseline/run.log	keep	Baseline INT4 2:4 SP on RTX 3090
+1	autoresearch/context-compactor-32k	2848133	4cec1da	context_compactor	overall_score	97.29	19.3	1.1	local	local-rtx3090	python eval_empirical_quality.py	reports/auto_research/exp1/run.log	keep	Hierarchical token compactor for long 32k contexts
+2	autoresearch/router-lora-entropy	4cec1da	91633fa	router_entropy_reg	overall_score	97.36	19.3	1.4	local	local-rtx3090	python eval_empirical_quality.py	reports/auto_research/exp2/run.log	keep	MoE Router Gate LoRA calibration with entropy regularization
