@@ -92,15 +92,14 @@ def run_inference(
         responses = job.get("response", [])
         turn_idx = job["turn_idx"] - 1
 
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-        for prompt, response in zip(prompts[:turn_idx], responses[:turn_idx]):
-            messages.extend([
-                {"role": "user", "content": prompt},
-                {"role": "assistant", "content": response},
-            ])
-        messages.append({"role": "user", "content": prompts[turn_idx]})
+        from lwm_eval_utils.context_compactor import compress_trajectory_messages
+        messages = compress_trajectory_messages(
+            system_str=system_prompt,
+            prompts=prompts[:turn_idx],
+            responses=responses[:turn_idx],
+            current_prompt=prompts[turn_idx],
+            max_total_chars=120000
+        )
 
         try:
             response = client.chat.completions.create(
